@@ -1,0 +1,20 @@
+<div class="container p-2">
+    <div class="card">
+        <div class="card-header">
+
+            <h3>Realizar Pergunta</h3>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="/salvarpergunta">
+                <label for="title">Título</label>
+                <input type="text" name="titulo" placeholder="Título" id="title" class="form-control">
+                <label for="desc">Descrição</label>
+
+                <textarea name="descricao" placeholder="Descreva sua pergunta" class="form-control textarea" id="desc"
+                    cols="30" rows="10"></textarea>
+                <button class="btn dark-color w-100 mt-2" type="submit">Perguntar</button>
+            </form>
+        </div>
+    </div>
+
+</div>

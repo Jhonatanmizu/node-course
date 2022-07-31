@@ -1,0 +1,56 @@
+<%- include ('components/header.ejs') %>
+
+    <body>
+        <%- include ('components/navbar.ejs') %>
+            <div class="container text-light">
+                <hr>
+                <h1>
+                    <%= question.titulo %>
+                </h1>
+
+                <p>
+                    <%= question.descricao %>
+                </p>
+                <hr>
+                <form class="m-1" action="/resposta" method="post">
+                    <h3>Responda</h3>
+                    <!-- <label for="corpo" class="form-label">resposta</label> -->
+                    <textarea name="body" placeholder="Digite sua resposta" cols="10" rows="10"
+                        class="form-control mb-2 textarea" id="corpo"></textarea>
+                    <input type="hidden" name="questId" value="<%= question.id %> ">
+
+                    <button type="submit" class="btn btn-warning  w-100">
+                        Responder
+                    </button>
+
+                </form>
+                <% if (answeers.length>= 1) { %>
+                    <hr>
+                    <h3>Respostas</h3>
+                    <hr>
+                    <div class="row">
+                        <% answeers.forEach(answeer=> { %>
+                            <!-- <div class="alert alert-secondary" role="alert">
+
+                        </div> -->
+                            <div class="col-md-12">
+                                <div class="card m-1 min-w-100 min-h-100">
+                                    <div class="card-body text-dark">
+                                        <p>
+                                            <%= answeer.body %>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <% }) %>
+                    </div>
+
+
+                    <% } %>
+
+            </div>
+            <!-- <%- include ('components/question.ejs') %> -->
+    </body>
+    <%- include ('components/footer.ejs') %>
