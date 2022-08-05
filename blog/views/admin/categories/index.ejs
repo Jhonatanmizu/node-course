@@ -1,0 +1,57 @@
+<%- include ('../../partials/header.ejs') %>
+    <%- include ('../../partials/navbar.ejs') %>
+        <div class="container p-2">
+
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-wrap ">
+                        Categorias
+                    </h2>
+
+                    <a class="btn btn-succes my-1" href="/admin/categories/new">Criar nova categoria</a>
+                </div>
+                <div class="card-body">
+                    <table class="table table-secondary table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Título</th>
+                                <th>Slug</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <% categories.forEach(categorie=> { %>
+                                <tr>
+                                    <td>
+                                        <%= categorie.id %>
+
+                                    </td>
+                                    <td>
+                                        <%= categorie.title %>
+                                    </td>
+                                    <td>
+                                        <%= categorie.slug %>
+
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center justify-between gap-3">
+
+                                            <button class="btn btn-warning mr-1">Editar</button>
+                                            <form action="/admin/categories/delete" method="post">
+                                                <input type="hidden" name="id" value="<%= categorie.id %>">
+                                                <button type="submit" class="btn btn-danger">Deletar</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <% }) %>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <%- include ('../../partials/footer.ejs') %>
