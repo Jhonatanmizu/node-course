@@ -1,0 +1,23 @@
+:root {
+  --primary: #333;
+  --secondary: #fff;
+}
+
+body {
+  background-color: var(--primary);
+}
+
+.dark-color {
+  background-color: var(--primary);
+  color: var(--secondary);
+}
+
+.img-logo {
+  width: 80px;
+  height: 80px;
+  border: 3px solid var(--primary);
+  border-radius: 40px;
+}
+.textarea {
+  resize: none;
+}
