@@ -2,6 +2,7 @@ const { Sequelize } = require("sequelize");
 const sequelize = new Sequelize("guiapress", "root", "password", {
     host: "localhost",
     dialect: "mariadb",
+    timezone: "-03:00"
 });
 
 async function ConnectDB() {

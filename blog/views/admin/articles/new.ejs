@@ -9,7 +9,7 @@
 
                 </div>
                 <div class="card-body">
-                    <form action="/categories/save" method="post">
+                    <form class="mb-2" action="/article/save" method="post">
 
                         <div class="form-group">
                             <lable for="title" class="form-label">Título</lable>
@@ -21,6 +21,20 @@
                             <textarea name="body" id="article" cols="30" rows="10" class="form-control"
                                 placeholder="Escreva aqui o seu artigo"></textarea>
                         </div>
+                        <div class="form-group">
+                            <label for="category">
+                                Categoria
+                            </label>
+                            <select name="category" id="category" class="form-control">
+                                <option value="" selected>selecione</option>
+                                <% categories.forEach(cat=> { %>
+
+                                    <option value="<%= cat.id %>">
+                                        <%= cat.title %>
+                                    </option>
+                                    <% }) %>
+                            </select>
+                        </div>
                         <div class="row">
 
                             <button type="submit" class="btn col-md-12 mt-2 btn-primary">
@@ -28,7 +42,10 @@
                             </button>
                         </div>
                     </form>
+
+
                 </div>
+
             </div>
 
         </div>
