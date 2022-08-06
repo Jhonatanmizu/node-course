@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Category = require('../models/Category')
 const slugify = require('slugify')
+
 router.post('/categories/save', (req, res, next) => {
     console.log(req.body);
     if (req.body.title) {
@@ -53,5 +54,35 @@ router.post('/admin/categories/delete', (req, res, next) => {
 
     }
 
+})
+router.get('/admin/categories/edit/:id', (req, res) => {
+    const id = req.params.id
+    if (isNaN(id)) {
+        res.redirect('/admin/categories')
+    }
+    Category.findByPk(id).then((cat) => {
+        if (cat) {
+            console.log("CAT", cat);
+            res.render('admin/categories/edit', { cat })
+        } else {
+            res.redirect('/admin/categories')
+        }
+    })
+})
+router.post('/categories/update', (req, res) => {
+    const { id, title } = req.body;
+    Category.update({
+        title: title,
+        slug: slugify(title)
+    }, {
+        where: {
+            id: id
+        }
+    }).then(r => {
+        console.log("Atualizado com sucesso");
+        res.redirect('/admin/categories')
+    }).catch(e => {
+        console.log("Erro ao tentar atualizar");
+    })
 })
 module.exports = router
