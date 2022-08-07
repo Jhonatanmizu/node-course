@@ -1,8 +1,10 @@
 import Express from "express";
 import bodyParser from "body-parser";
+import cors from 'cors'
 const app = Express()
 const port = 3000
 
+app.use(cors())
 const db = {
     games: [
         {
