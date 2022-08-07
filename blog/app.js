@@ -23,6 +23,40 @@ app.use(express.static("public"));
 app.use('/', categoriesController);
 app.use('/', articlesController);
 
+app.get('/', (req, res) => {
+    Article.findAll({
+        order: [
+            [
+                "id", "DESC"
+            ]
+        ]
+    }).then((articles) => {
+        Category.findAll().then(categories => {
+
+            res.render('index', { articles: articles, categories: categories })
+        })
+    })
+})
+app.get('/:slug', (req, res) => {
+    const slug = req.params.slug
+    console.log("SLUG", slug);
+    Article.findOne({
+        where: {
+            slug: slug
+        }
+    }).then((article) => {
+        if (article)
+            Category.findAll().then(categories => {
+
+                res.render('reader', { articles: articles, categories: categories })
+            })
+    }).catch((err) => {
+
+        console.error(err);
+        res.redirect('/')
+    }
+    )
+})
 
 app.listen(port, () => {
     console.log(`Running on http://localhost:${port}`);

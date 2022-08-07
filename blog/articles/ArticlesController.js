@@ -5,7 +5,11 @@ const Article = require('../models/Article')
 const slugify = require('slugify')
 router.get('/admin/articles', (req, res, next) => {
     // res.send("ROTA DE ARTICLES")
-    Article.findAll().then((articles) => {
+    Article.findAll({
+        include: [
+            { model: Category }
+        ]
+    }).then((articles) => {
 
         res.render('admin/articles/articles', { articles: articles })
     }).catch((err) => {
@@ -46,5 +50,9 @@ router.post('/admin/articles/delete', (req, res) => {
         console.error(err)
     })
 })
-// router.post('')
+// router.get('/', (req, res) => {
+//     Article.findAll().then((articles) => {
+//         res.render('index', { articles: articles })
+//     })
+// })
 module.exports = router
