@@ -2,7 +2,7 @@ const api = axios.create({
     baseURL: 'http://localhost:3000/',
     timeout: 1000,
     headers: {
-
+        Authorization: "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqaG9uQGdtYWlsLmNvbSIsImlhdCI6MTY1OTkxMjkxNywiZXhwIjoxNjU5OTMwOTE3fQ.1vATfaQOluDMc_s38dk21wvmuTm8dc1U0mdaQadpNcg",
         "Content-type": 'application/json'
     }
 });
