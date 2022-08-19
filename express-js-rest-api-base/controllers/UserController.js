@@ -27,12 +27,6 @@ class UserController {
                 res.status(200)
                 res.json(req.body)
         }
-        async update(req, res) {
-
-        }
-        async deleteById(req, res) {
-
-        }
         async getAll(req, res) {
                 const result = await User.getUsers("asc")
                 console.log(result);
@@ -68,15 +62,46 @@ class UserController {
                         res.send("parâmetros inválidos")
                         return
                 }
-                const user = await User.deleteById(id)
-                if (user) {
-                        res.status(200)
-                        res.json(user)
-                        console.log(user);
-                } else {
-                        res.status(404)
-                        res.send("Usuário não deletado")
+                try {
+
+                        const user = await User.deleteById(id)
+                        if (user) {
+                                res.status(200)
+                                res.json(user)
+                                console.log(user);
+                        } else {
+                                res.status(404)
+                                res.send("Usuário não deletado")
+                        }
+                } catch (error) {
+                        console.error(error);
                 }
+
+
+        }
+        async updatUser(req, res) {
+                const { id } = req.body
+                try {
+                        if (isNaN(id)) {
+                                res.status(403)
+                                res.send("parâmetro inválido")
+                        } else {
+                                const result = await User.updateUser(id, req.body)
+                                if (result.status) {
+
+                                        res.status(200)
+                                        res.send("Atualizado com sucesso!")
+                                } else {
+                                        res.status(406)
+                                        // res.send("Erro, não foi possível atualizar")
+                                        res.json(result)
+
+                                }
+                        }
+                } catch (error) {
+                        console.error(error);
+                }
+
         }
 }
 module.exports = new UserController()

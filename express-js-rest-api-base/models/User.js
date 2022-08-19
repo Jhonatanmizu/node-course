@@ -37,9 +37,45 @@ class User {
     async deleteById(id) {
         try {
 
-            return await knex.select().into('users').where("id", id).del()
+            return await knex.select().into('users').where({ id: id }).del()
         } catch (error) {
             console.error(error)
+        }
+    }
+    async updateUser(id, body) {
+        const { email, name, role } = body
+        try {
+            const user = await this.getUserById(id)
+            console.log("User", user);
+            console.log(email);
+            const editUser = {};
+            if (user.length >= 1) {
+                if (email) {
+                    console.log(email !== user.email);
+                    if (email !== user.email) {
+                        let result = await this.findEmail(email)
+                        console.log(result);
+                        if (result.length < 1) {
+                            editUser.email = email;
+                        } else {
+                            console.log("JJJJJJ");
+                            return { status: false, err: "email já cadastrado" }
+                        }
+                    }
+                }
+                if (name && role) {
+                    editUser.name = name
+                    editUser.role = role
+                }
+                return await knex.update(editUser).where({ id }).into('users')
+            } else {
+                return {
+                    status: false,
+                    err: "Usuário não existe"
+                }
+            }
+        } catch (error) {
+            console.error(error);
         }
     }
 }
